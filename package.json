@@ -11,7 +11,9 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "homepage": "https://etherboxes.io",
   "devDependencies": {
@@ -20,6 +22,7 @@
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
     "@types/underscore": "^1.8.7",
+    "gh-pages": "^1.1.0",
     "underscore": "^1.8.3"
   }
 }
