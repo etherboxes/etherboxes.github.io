@@ -5,15 +5,21 @@ export default class Grid extends React.Component<{}> {
   render() {
     return (
       <div className="table-responsive">
-        <table className="table table-bordered table-striped">
+        <table className="table table-bordered table-striped ">
           <thead>
-          <th style={{ textAlign: 'center' }}>Home/Away Score</th>
-          {
-            _.range(0, 10)
-              .map(
-                home => <th style={{ textAlign: 'center' }} key={home}>{home}</th>
-              )
-          }
+          <tr>
+            <th/>
+            <th className="text-center" colSpan={10}>Home Team score</th>
+          </tr>
+          <tr>
+            <th className="text-center">Away Team score</th>
+            {
+              _.range(0, 10)
+                .map(
+                  home => <th className="text-center" key={home}>{home}</th>
+                )
+            }
+          </tr>
           </thead>
           <tbody>
           {
