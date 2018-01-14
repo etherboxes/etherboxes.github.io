@@ -33,7 +33,7 @@ export default class Grid extends React.Component<{}> {
                         .map(
                           home => (
                             <td className="text-center hover-box" key={`${home},${away}`}>
-                              {home}, {away}
+                              {home} - {away}
                             </td>
                           )
                         )
