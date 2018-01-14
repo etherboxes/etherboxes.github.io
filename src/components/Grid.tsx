@@ -27,12 +27,12 @@ export default class Grid extends React.Component<{}> {
               .map(
                 away => (
                   <tr key={away}>
-                    <th style={{ textAlign: 'center' }}>{away}</th>
+                    <th className="text-center">{away}</th>
                     {
                       _.range(0, 10)
                         .map(
                           home => (
-                            <td style={{ textAlign: 'center' }} className="hover-box" key={`${home},${away}`}>
+                            <td className="text-center hover-box" key={`${home},${away}`}>
                               {home}, {away}
                             </td>
                           )
