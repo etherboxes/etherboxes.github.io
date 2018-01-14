@@ -19,7 +19,7 @@ div.responsive {
 }
 
 .single-box {
-    margin: 0px;
+    margin: 0;
     height: 50px;
     width: 80px;
     text-align: center;
@@ -28,12 +28,12 @@ div.responsive {
 .hover-box {
     transition: all 0.30s ease-in-out;
     outline: none;
-    padding: 3px 0px 3px 3px;
+    padding: 3px 0 3px 3px;
     border: 1px solid white;
 }
 
 .hover-box:hover {
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    padding: 3px 0px 3px 3px;
+    padding: 3px 0 3px 3px;
     border: 1px solid rgba(81, 203, 238, 1);
 }
