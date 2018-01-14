@@ -19,6 +19,7 @@ export default class App extends React.Component {
 
         <h4>Example Box Score from the Big Game, 2017</h4>
         <table className="table table-bordered">
+          <thead>
           <tr>
             <th>Team</th>
             <th>1</th>
@@ -28,7 +29,9 @@ export default class App extends React.Component {
             <th>OT</th>
             <th>Final</th>
           </tr>
+          </thead>
 
+          <tbody>
           <tr>
             <td>New England (Away)</td>
             <td>0</td>
@@ -48,6 +51,7 @@ export default class App extends React.Component {
             <td>0</td>
             <td>28</td>
           </tr>
+          </tbody>
         </table>
 
         <br/>
