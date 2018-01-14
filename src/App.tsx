@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>EtherBoxes</h1>
+        <h1 className="page-header">EtherBoxes</h1>
         <p>Welcome to EtherBoxes, where you can play the boxes on the Big Game with Ether.</p>
 
         <h2>How it works</h2>
@@ -18,7 +18,7 @@ export default class App extends React.Component {
           You can wager right up until the Big Game starts on February 4 at 6:30 PM EST.
         </p>
 
-        <h4>Example Box Score from the Big Game, 2017</h4>
+        <h3>Example Box Score from the Big Game, 2017</h3>
         <ExampleBoxScore/>
 
         <br/>
