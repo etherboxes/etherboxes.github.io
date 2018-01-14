@@ -1,0 +1,39 @@
+.top-team {
+    left: 150px;
+    position: relative;
+}
+
+div.responsive {
+    overflow-x: auto;
+}
+
+.header-box {
+    background-color: #eeeeee;
+}
+
+.side-team {
+    transform: rotate(270deg);
+    transform-origin: 0 0 0;
+    position: relative;
+    top: 130px;
+}
+
+.single-box {
+    margin: 0px;
+    height: 50px;
+    width: 80px;
+    text-align: center;
+}
+
+.hover-box {
+    transition: all 0.30s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    border: 1px solid white;
+}
+
+.hover-box:hover {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    border: 1px solid rgba(81, 203, 238, 1);
+}
