@@ -1,13 +1,20 @@
 import * as React from 'react';
 import Grid from './components/Grid';
 import ExampleBoxScore from './components/ExampleBoxScore';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import AppMenu from './components/AppMenu';
 
 export default class App extends React.Component {
   render() {
     return (
-      <div className="container">
-        <h1 className="page-header">EtherSquares</h1>
-        <p>Welcome to EtherSquares, where you can play the boxes on the Big Game with Ether.</p>
+      <Container>
+        <AppMenu/>
+
+        <Header as="h1">EtherSquares</Header>
+        <p>
+          Welcome to EtherSquares, where you can play a completely unfair, free decentralized game of squares on Ether.
+        </p>
 
         <h2>How it works</h2>
         <p>
@@ -44,13 +51,17 @@ export default class App extends React.Component {
 
         <Grid/>
 
-        <h2>About us</h2>
+        <h2>FAQ</h2>
+        <h3>What do you mean decentralized?</h3>
         <p>
-          We here at EtherSquares are committed to a trustworthy and open experience.
-          Feel free to audit all of our code <a href="https://github.com/moodysalem/ethersquares">here</a>.
+          Your money is held in escrow by a contract on the Ethereum network.
         </p>
-        <p>Our service charges 5% of each wager which gets transfered when the wager is made.</p>
-      </div>
+        <h3>How can I trust you?</h3>
+        <p>
+          Feel free to audit all of the contract code
+          on <a href="https://github.com/moodysalem/ethersquares">GitHub</a>.
+        </p>
+      </Container>
     );
   }
 }
