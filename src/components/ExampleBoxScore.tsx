@@ -18,23 +18,23 @@ export default class ExampleBoxScore extends React.Component {
 
         <tbody>
         <tr>
-          <td>New England (Away)</td>
-          <td>0</td>
-          <td>3</td>
-          <td>6</td>
-          <td>19</td>
-          <td>6</td>
-          <td>34</td>
-        </tr>
-
-        <tr>
-          <td>Atlanta (Home)</td>
+          <td><strong>Atlanta</strong> (Home)</td>
           <td>0</td>
           <td>21</td>
           <td>7</td>
           <td>0</td>
           <td>0</td>
           <td>28</td>
+        </tr>
+
+        <tr>
+          <td><strong>New England</strong> (Away)</td>
+          <td>0</td>
+          <td>3</td>
+          <td>6</td>
+          <td>19</td>
+          <td>6</td>
+          <td>34</td>
         </tr>
         </tbody>
       </table>
