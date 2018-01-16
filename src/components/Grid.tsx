@@ -13,7 +13,8 @@ export default class Grid extends React.Component<{}> {
             <th className="text-center" colSpan={10}>Home Team score</th>
           </tr>
           <tr>
-            <th className="text-right" rowSpan={10}>Away Team scoreAway Team scoreAway Team score</th>
+
+            <th className="text-right" rowSpan={10}>Away Team score</th>
             {
               _.range(0, 10)
                 .map(
@@ -28,14 +29,13 @@ export default class Grid extends React.Component<{}> {
               .map(
                 away => (
                   <tr key={away}>
-                    <th />
                     <th className="text-right">{away}</th>
                     {
                       _.range(0, 10)
                         .map(
                           home => (
                             <td className="text-center grid-box" key={`${home},${away}`}>
-                              No bets
+                              {home} - {away}
                             </td>
                           )
                         )

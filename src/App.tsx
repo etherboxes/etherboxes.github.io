@@ -6,7 +6,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="page-header">EtherBoxes</h1>
+        <h1 className="page-header">EtherSquares</h1>
         <p>Welcome to EtherBoxes, where you can play the boxes on the Big Game with Ether.</p>
 
         <h2>How it works</h2>
