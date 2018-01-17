@@ -1,43 +1,44 @@
 import * as React from 'react';
+import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
 
 export default class ExampleBoxScore extends React.Component {
   render() {
     return (
-      <table className="table table-bordered">
-        <thead>
-        <tr>
-          <th>Team</th>
-          <th>1</th>
-          <th>2</th>
-          <th>3</th>
-          <th>4</th>
-          <th>OT</th>
-          <th>Final</th>
-        </tr>
-        </thead>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Team</Table.HeaderCell>
+            <Table.HeaderCell>1</Table.HeaderCell>
+            <Table.HeaderCell>2</Table.HeaderCell>
+            <Table.HeaderCell>3</Table.HeaderCell>
+            <Table.HeaderCell>4</Table.HeaderCell>
+            <Table.HeaderCell>OT</Table.HeaderCell>
+            <Table.HeaderCell>Final</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
 
-        <tbody>
-        <tr>
-          <td><strong>Atlanta</strong> (Home)</td>
-          <td>0</td>
-          <td>21</td>
-          <td>7</td>
-          <td>0</td>
-          <td>0</td>
-          <td>28</td>
-        </tr>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell><strong>Atlanta</strong> (Home)</Table.Cell>
+            <Table.Cell>0</Table.Cell>
+            <Table.Cell>21</Table.Cell>
+            <Table.Cell>7</Table.Cell>
+            <Table.Cell>0</Table.Cell>
+            <Table.Cell>0</Table.Cell>
+            <Table.Cell>28</Table.Cell>
+          </Table.Row>
 
-        <tr>
-          <td><strong>New England</strong> (Away)</td>
-          <td>0</td>
-          <td>3</td>
-          <td>6</td>
-          <td>19</td>
-          <td>6</td>
-          <td>34</td>
-        </tr>
-        </tbody>
-      </table>
+          <Table.Row>
+            <Table.Cell><strong>New England</strong> (Away)</Table.Cell>
+            <Table.Cell>0</Table.Cell>
+            <Table.Cell>3</Table.Cell>
+            <Table.Cell>6</Table.Cell>
+            <Table.Cell>19</Table.Cell>
+            <Table.Cell>6</Table.Cell>
+            <Table.Cell>34</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
     );
   }
 }

@@ -1,8 +1,0 @@
-.grid-box {
-    transition: box-shadow 0.3s, transform 0.3s;
-    cursor: pointer;
-}
-
-.grid-box:hover {
-    transform: scale(1.08);
-}
