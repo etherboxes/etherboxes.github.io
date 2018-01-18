@@ -39,7 +39,7 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         <p>
           Your money is held in escrow by a contract on the Ethereum network. I collect no fees because I run no
           infrastructure. The private key used to report the score is held by multiple people, so the score will be
-          reported. The system is built such that I do
+          reported.
         </p>
 
         <Header as="h2">How can I trust you?</Header>
