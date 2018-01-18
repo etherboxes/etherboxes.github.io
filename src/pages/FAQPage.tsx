@@ -50,15 +50,13 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         </p>
         <ul>
           <li>
-            <strong style={{ marginRight: 4 }}>Squares</strong>
             <a href="https://etherscan.io/address/0x96e9ace417632353da8133f8471769c796641c30#code">
-              0x96e9ace417632353da8133f8471769c796641c30
+              Squares Contract
             </a>
           </li>
           <li>
-            <strong style={{ marginRight: 4 }}>Voting Based Oracle</strong>
             <a href="https://etherscan.io/address/0x42b81fb65d24f547aee4f012e6953e41d0be0d5e#code">
-              0x42b81fb65d24f547aee4f012e6953e41d0be0d5e
+              Voting Based Oracle
             </a>
           </li>
         </ul>
