@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default class Grid extends React.Component<{}> {
   render() {
     return (
-      <Table>
+      <Table unstackable={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell rowSpan={2} colSpan={2}/>
