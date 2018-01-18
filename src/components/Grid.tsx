@@ -1,0 +1,65 @@
+import * as React from 'react';
+import * as _ from 'underscore';
+import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
+import { Link } from 'react-router-dom';
+
+export default class Grid extends React.Component<{}> {
+  render() {
+    return (
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell rowSpan={2} colSpan={2}/>
+            <Table.HeaderCell textAlign="center" colSpan={10}>Home team score</Table.HeaderCell>
+          </Table.Row>
+          <Table.Row>
+            {
+              _.range(0, 10)
+                .map(
+                  home => <Table.HeaderCell textAlign="center" key={home}>{home}</Table.HeaderCell>
+                )
+            }
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {
+            _.range(0, 10)
+              .map(
+                away => (
+                  <Table.Row key={away}>
+                    {
+                      away === 0 ? (
+                        <Table.HeaderCell rowSpan={10}>
+                          <div
+                            style={{
+                              transform: 'rotate(-90deg)',
+                              transformOrigin: '50%',
+                              whiteSpace: 'nowrap',
+                              width: 30
+                            }}
+                          >
+                            Away team score
+                          </div>
+                        </Table.HeaderCell>
+                      ) : null
+                    }
+                    <Table.HeaderCell textAlign="right">{away}</Table.HeaderCell>
+                    {
+                      _.range(0, 10)
+                        .map(
+                          home => (
+                            <Table.Cell textAlign="center" selectable={true} key={`${home}-${away}`}>
+                              <Link to={`/bid/${home}-${away}`}>{home} - {away}</Link>
+                            </Table.Cell>
+                          )
+                        )
+                    }
+                  </Table.Row>
+                )
+              )
+          }
+        </Table.Body>
+      </Table>
+    );
+  }
+}

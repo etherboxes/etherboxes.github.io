@@ -16,8 +16,7 @@ export default class AppMenu extends React.Component<AppMenuProps> {
   render() {
     return (
       <Menu pointing={true} secondary={true}>
-        <MenuLink name="Grid" to="/grid"/>
-        <MenuLink name="About" to="/about"/>
+        <MenuLink name="Grid" to="/"/>
         <MenuLink name="FAQ" to="/faq"/>
       </Menu>
     );

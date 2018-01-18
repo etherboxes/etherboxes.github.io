@@ -1,10 +1,9 @@
 import * as React from 'react';
-import GridPage from './components/GridPage';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import AppMenu from './components/AppMenu';
 import { Route, Switch } from 'react-router';
-import FAQPage from './FAQPage';
+import FAQPage from './pages/FAQPage';
+import GridPage from './pages/GridPage';
 
 export default class App extends React.Component {
   render() {
@@ -12,11 +11,9 @@ export default class App extends React.Component {
       <Container>
         <AppMenu/>
 
-        <Header as="h1">EtherSquares</Header>
-
         <Switch>
-          <Route path="/grid" component={GridPage}/>
-          <Route path="/faq" component={FAQPage}/>
+          <Route path="/" exact={true} component={GridPage}/>
+          <Route path="/faq" exact={true} component={FAQPage}/>
         </Switch>
       </Container>
     );
