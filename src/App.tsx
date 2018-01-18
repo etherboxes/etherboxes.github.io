@@ -15,6 +15,8 @@ export default class App extends React.Component {
           <Route path="/" exact={true} component={GridPage}/>
           <Route path="/faq" exact={true} component={FAQPage}/>
         </Switch>
+
+        <div style={{ height: 40 }}/>
       </Container>
     );
   }
