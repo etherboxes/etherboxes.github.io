@@ -6,7 +6,6 @@ import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
 import { ModalProps } from 'semantic-ui-react';
 import { Squares, web3 } from '../contracts';
-import BigNumber from 'web3/bower/bignumber.js/bignumber';
 
 interface FormValue {
   acceptedRisks: boolean;
@@ -48,7 +47,7 @@ export default class BetModal extends React.Component<Props, State> {
         } else {
           Squares.bet(
             score.home, score.away,
-            { value: web3.toWei(new BigNumber(value.amount), 'ether'), from: accounts[ 0 ] },
+            { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
             (betError, result) => {
               console.log(betError, result);
             }

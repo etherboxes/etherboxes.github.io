@@ -11,8 +11,16 @@ if (typeof (window as any).web3 !== 'undefined') {
   usingInjectedWeb3 = true;
   web3Instance = new Web3((window as any).web3.currentProvider);
 } else {
-  console.log('using infura');
-  web3Instance = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/0eep3H3CSiqitPXv0aOy'));
+  console.log('using infura with zero client provider');
+
+  const provider = (window as any).ZeroClientProvider({
+    getAccounts: function () {
+      return [];
+    },
+    rpcUrl: 'https://mainnet.infura.io/0eep3H3CSiqitPXv0aOy'
+  });
+
+  web3Instance = new Web3(provider);
 }
 
 export const canSend = usingInjectedWeb3;
