@@ -11,6 +11,7 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message
 interface FormValue {
   acceptedRisks: boolean;
   acceptedUnderstand: boolean;
+  acceptedLiability: boolean;
   amount: string;
 }
 
@@ -22,7 +23,7 @@ interface State {
   value: FormValue;
 }
 
-const DEFAULT_VALUE = { acceptedRisks: false, acceptedUnderstand: false, amount: '1' };
+const DEFAULT_VALUE = { acceptedRisks: false, acceptedUnderstand: false, acceptedLiability: false, amount: '1' };
 
 export default class BetModal extends React.Component<Props, State> {
   state = {
@@ -101,14 +102,22 @@ export default class BetModal extends React.Component<Props, State> {
               <Checkbox
                 checked={value.acceptedRisks}
                 onChange={e => this.handleChange({ ...value, acceptedRisks: !value.acceptedRisks })}
-                label="I agree that I understand the risks of using the Ethereum Squares contract"
+                label="I agree that I understand the risks of errors in the Ethereum smart contract code"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Checkbox
+                checked={value.acceptedLiability}
+                onChange={e => this.handleChange({ ...value, acceptedLiability: !value.acceptedLiability })}
+                label={'I agree that the developer is not liable for any risk ' +
+                'associated with my use of the Ethereum squares contract'}
               />
             </Form.Field>
             <Form.Field>
               <Checkbox
                 checked={value.acceptedUnderstand}
                 onChange={e => this.handleChange({ ...value, acceptedUnderstand: !value.acceptedUnderstand })}
-                label="I agree that I understand the game of squares"
+                label="I understand the game of squares"
               />
             </Form.Field>
           </Form>
@@ -121,7 +130,14 @@ export default class BetModal extends React.Component<Props, State> {
         </Modal.Content>
         <Modal.Actions>
           <Button
-            disabled={!canSend || !score || !value.acceptedRisks || !value.acceptedUnderstand || !value.amount}
+            disabled={
+              !canSend ||
+              !value.acceptedLiability ||
+              !score ||
+              !value.acceptedRisks ||
+              !value.acceptedUnderstand ||
+              !value.amount
+            }
             positive={true}
             onClick={this.placeBet}
           >
