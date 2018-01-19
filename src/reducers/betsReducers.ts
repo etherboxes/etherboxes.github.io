@@ -100,14 +100,14 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
       const { args: { better, home, away, stake } }: BetEvent = (action as any).payload;
 
       const key = `${home.valueOf()}-${away.valueOf()}`;
-      const square = state[ key ];
+      const square = state.squares[ key ];
 
       return {
         ...state,
-        total: stake.add(state.total).valueOf(),
+        total: new BigNumber(stake).add(state.total).valueOf(),
         [ key ]: {
-          total: stake.add(square.total).valueOf(),
-          bets: square.squares.concat([
+          total: new BigNumber(stake).add(square.total).valueOf(),
+          bets: square.bets.concat([
             { better, stake: stake.valueOf() }
           ])
         }
