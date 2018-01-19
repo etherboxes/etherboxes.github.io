@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AllHTMLAttributes } from 'react';
 import * as _ from 'underscore';
 import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,21 @@ import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { BetsState } from '../reducers/betsReducers';
 import { web3 } from '../contracts';
+
+function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      style={{
+        ...props.style,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        width: 100
+      }}
+    />
+  );
+}
 
 export default connect(
   ({ bets }: AppState) => ({ bets })
@@ -68,15 +84,15 @@ export default connect(
                                   return (
                                     <Table.Cell textAlign="center" selectable={true} key={`${home}-${away}`}>
                                       <Link to={`/bet/${home}-${away}`}>
-                                        <div style={{ whiteSpace: 'nowrap' }}>
+                                        <LimitedWidthDiv>
                                           <strong>{home} - {away}</strong>
-                                        </div>
-                                        <div style={{ whiteSpace: 'nowrap' }}>
+                                        </LimitedWidthDiv>
+                                        <LimitedWidthDiv>
                                           {info.bets.length} <em>bet{info.bets.length !== 1 ? 's' : ''}</em>
-                                        </div>
-                                        <div style={{ whiteSpace: 'nowrap' }}>
-                                          {web3.fromWei(info.total, 'ether')} <em>ETH</em>
-                                        </div>
+                                        </LimitedWidthDiv>
+                                        <LimitedWidthDiv>
+                                          {Math.round(+web3.fromWei(info.total, 'ether') * 1000) / 1000} <em>ETH</em>
+                                        </LimitedWidthDiv>
                                       </Link>
                                     </Table.Cell>
                                   );
