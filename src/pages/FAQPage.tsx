@@ -96,6 +96,12 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
           before the voting begins.
         </p>
 
+        <Header as="h2">How can I collect my winnings?</Header>
+        <p>
+          Once the score is finalized, you can call a function on the contract to collect your winnings.
+          The UI for that interaction will be built before the score is finalized.
+        </p>
+
         <Header as="h2">Can I run this site locally?</Header>
         <p>
           Yes, you may download the html, js, and css files. All external resource links, excluding google analytics and
