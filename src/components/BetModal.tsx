@@ -24,7 +24,7 @@ interface State {
   value: FormValue;
 }
 
-const DEFAULT_VALUE = { acceptedRisks: false, acceptedUnderstand: false, acceptedLiability: false, amount: '1' };
+const DEFAULT_VALUE = { acceptedRisks: false, acceptedUnderstand: false, acceptedLiability: false, amount: '0.1' };
 
 export default class BetModal extends React.Component<Props, State> {
   state = {
