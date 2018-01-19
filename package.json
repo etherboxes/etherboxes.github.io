@@ -15,7 +15,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://moodysalem.com/ethersquares/",
+  "homepage": "https://ethersquares.io",
   "devDependencies": {
     "@types/jest": "^22.0.1",
     "@types/node": "^9.3.0",
