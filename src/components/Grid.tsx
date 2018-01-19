@@ -5,8 +5,9 @@ import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
-import { BetsState } from '../reducers/betsReducers';
+import { SquareInfoMap } from '../reducers/betsReducers';
 import { web3 } from '../contracts';
+import numberDisplay from '../util/numberDisplay';
 
 function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
   return (
@@ -23,11 +24,11 @@ function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
 }
 
 export default connect(
-  ({ bets }: AppState) => ({ bets })
+  ({ bets: { squares } }: AppState) => ({ squares })
 )(
-  class Grid extends React.Component<{ bets: BetsState }> {
+  class Grid extends React.Component<{ squares: SquareInfoMap }> {
     render() {
-      const { bets } = this.props;
+      const { squares } = this.props;
 
       return (
         <div style={{ overflowX: 'auto' }}>
@@ -78,7 +79,7 @@ export default connect(
                             _.range(0, 10)
                               .map(
                                 home => {
-                                  const info = bets[ `${home}-${away}` ];
+                                  const squareInfo = squares[ `${home}-${away}` ];
 
                                   return (
                                     <Table.Cell
@@ -92,10 +93,12 @@ export default connect(
                                           <strong>{home} - {away}</strong>
                                         </LimitedWidthDiv>
                                         <LimitedWidthDiv>
-                                          {info.bets.length} <em>bet{info.bets.length !== 1 ? 's' : ''}</em>
+                                          {squareInfo.bets.length} <em>bet{squareInfo.bets.length !== 1 ? 's' : ''}</em>
                                         </LimitedWidthDiv>
                                         <LimitedWidthDiv>
-                                          {Math.round(+web3.fromWei(info.total, 'ether') * 1000) / 1000} <em>ETH</em>
+                                          {
+                                            numberDisplay(web3.fromWei(squareInfo.total, 'ether'))
+                                          } <em>ETH</em>
                                         </LimitedWidthDiv>
                                       </Link>
                                     </Table.Cell>

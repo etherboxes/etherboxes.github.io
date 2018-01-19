@@ -17,6 +17,7 @@ interface FormValue {
 
 interface Props extends ModalProps {
   score: { home: number; away: number; } | null;
+  onSuccess: () => void;
 }
 
 interface State {
@@ -39,7 +40,7 @@ export default class BetModal extends React.Component<Props, State> {
   }
 
   placeBet = () => {
-    const { score } = this.props;
+    const { score, onSuccess } = this.props;
     const { value } = this.state;
 
     if (score) {
@@ -54,11 +55,13 @@ export default class BetModal extends React.Component<Props, State> {
               score.home, score.away,
               { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
               (betError, result) => {
+                console.log(betError, result);
+
                 if (betError) {
                   alert('failed to place bet!');
                 } else {
                   alert(`succeeded in placing bet of ${value.amount} ETH on square ${score.home} - ${score.away}`);
-                  console.log(betError, result);
+                  onSuccess();
                 }
               }
             );
@@ -102,7 +105,7 @@ export default class BetModal extends React.Component<Props, State> {
               <Checkbox
                 checked={value.acceptedRisks}
                 onChange={e => this.handleChange({ ...value, acceptedRisks: !value.acceptedRisks })}
-                label="I agree that I understand the risks of errors in the Ethereum smart contract code"
+                label="I understand the risk for potential errors in the smart contract code to cause loss of funds"
               />
             </Form.Field>
             <Form.Field>

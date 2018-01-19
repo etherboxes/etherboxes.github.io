@@ -4,34 +4,49 @@ import Grid from '../components/Grid';
 import BetModal from '../components/BetModal';
 import TimeToGame from '../components/TimeToGame';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { connect } from 'react-redux';
+import { AppState } from '../util/configureStore';
+import numberDisplay from '../util/numberDisplay';
+import { web3 } from '../contracts';
 
 interface Props extends RouteComponentProps<{ square?: string }> {
 }
 
-export default class GridPage extends React.Component<Props> {
-  render() {
-    const { history, match: { params: { square } } } = this.props;
+export default connect(
+  ({ bets: { total } }: AppState) => ({ total })
+)(
+  class GridPage extends React.Component<Props & { total: string }> {
+    closeModal = () => this.props.history.push('/');
 
-    const pathScore = typeof square === 'string' && /^\d-\d$/.test(square) ?
-      square.split('-').map(s => +s) :
-      null;
+    render() {
+      const { match: { params: { square } }, total } = this.props;
 
-    const score = pathScore ? { home: pathScore[ 0 ], away: pathScore[ 1 ] } : null;
+      const pathScore = typeof square === 'string' && /^\d-\d$/.test(square) ?
+        square.split('-').map(s => +s) :
+        null;
 
-    return (
-      <div>
-        <Header as="h3" style={{ textAlign: 'center' }}>
-          <TimeToGame/>
-        </Header>
+      const score = pathScore ? { home: pathScore[ 0 ], away: pathScore[ 1 ] } : null;
 
-        <Grid/>
+      return (
+        <div>
+          <Header as="h2" style={{ textAlign: 'center' }}>
+            <TimeToGame/>
+          </Header>
 
-        <BetModal
-          open={Boolean(pathScore)}
-          score={score}
-          onClose={() => history.push('/')}
-        />
-      </div>
-    );
+          <Header as="h3" style={{ textAlign: 'center' }}>
+            Total pot: {numberDisplay(web3.fromWei(total, 'ether'))} ETH
+          </Header>
+
+          <Grid/>
+
+          <BetModal
+            open={Boolean(pathScore)}
+            score={score}
+            onClose={this.closeModal}
+            onSuccess={this.closeModal}
+          />
+        </div>
+      );
+    }
   }
-}
+);
