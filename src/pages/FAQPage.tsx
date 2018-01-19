@@ -69,15 +69,34 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
           transactions directly to the contract. It is simply more convenient to use this site.
         </p>
 
-        <Header as="h2">What is the donation percentage?</Header>
+        <Header as="h2">How are winnings calculated?</Header>
         <p>
-          When you collect your winnings, you may optionally specify a percentage of the winnings to donate to
-          compensate me for my development hours.
+          Each quarter, one fourth of the total pot is distributed to the winning square. Your winnings are your
+          percentage stake of that square. For example, if the pot contains 4 ETH, each quarter will pay out 1 ETH.
+          If you bet 0.1 ETH on the winning square, and everyone else bet 0.3 ETH, your share is 25% of the winnings,
+          or 0.25 ETH.
+        </p>
+
+        <Header as="h2">Can a square win more than once?</Header>
+        <p>
+          Yes. For each time a square wins, it pays out an 25% of the pot.
         </p>
 
         <Header as="h2">Is this legal?</Header>
         <p>
           I am never in possession of any money, and I do not collect any fees for this game.
+        </p>
+
+        <Header as="h2">What is the &quot;donation percentage?&quot;</Header>
+        <p>
+          When you collect your winnings, you may optionally specify a percentage of the winnings to donate to
+          compensate me for my development hours.
+        </p>
+
+        <Header as="h2">How can I vote to accept/reject the reported score?</Header>
+        <p>
+          The votes will be collected starting one day after the big game. The UI for this process will be released
+          before the voting begins.
         </p>
 
         <Header as="h2">Can I run this site locally?</Header>

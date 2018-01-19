@@ -22,7 +22,14 @@ export default class GridPage extends React.Component<Props> {
       <div>
         <Grid/>
 
-        <Modal size="small" open={Boolean(betScore)} dimmer="blurring" onClose={() => history.push('/')}>
+        <Modal
+          closeOnDimmerClick={true}
+          closeOnEscape={true}
+          size="small"
+          open={Boolean(betScore)}
+          dimmer="blurring"
+          onClose={() => history.push('/')}
+        >
           <Modal.Header>Bet on {square}</Modal.Header>
           <Modal.Content>
             <Form>
