@@ -82,8 +82,8 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
 
         <Header as="h2">Can I run this site locally?</Header>
         <p>
-          Yes, you may download the html, js, and css files. All external resource links, excluding google analytics,
-          come with subresource integrity hashes.
+          Yes, you may download the html, js, and css files. All external resource links, excluding google analytics and
+          Disqus, are included with subresource integrity hashes.
         </p>
       </div>
     );
