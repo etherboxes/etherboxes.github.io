@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Grid from '../components/Grid';
 import BetModal from '../components/BetModal';
+import TimeToGame from '../components/TimeToGame';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 interface Props extends RouteComponentProps<{ square?: string }> {
 }
@@ -18,6 +20,10 @@ export default class GridPage extends React.Component<Props> {
 
     return (
       <div>
+        <Header as="h3">
+          <TimeToGame/>
+        </Header>
+
         <Grid/>
 
         <BetModal
