@@ -107,6 +107,14 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
           Yes, you may download the html, js, and css files. All external resource links, excluding google analytics and
           Disqus, are included with subresource integrity hashes.
         </p>
+
+        <Header as="h2">Can I run my own game of squares?</Header>
+        <p>
+          Yes, you are free to fork the code for
+          the <a href="https://github.com/ethersquares/ethersquares.github.io">site</a> and the
+          <a href="https://github.com/ethersquares/ethersquares-contracts">contracts</a>,
+          or deploy it as is.
+        </p>
       </div>
     );
   }

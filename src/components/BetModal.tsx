@@ -12,6 +12,7 @@ interface FormValue {
   acceptedRisks: boolean;
   acceptedUnderstand: boolean;
   acceptedLiability: boolean;
+  acceptedLegality: boolean;
   amount: string;
 }
 
@@ -24,7 +25,13 @@ interface State {
   value: FormValue;
 }
 
-const DEFAULT_VALUE = { acceptedRisks: false, acceptedUnderstand: false, acceptedLiability: false, amount: '0.1' };
+const DEFAULT_VALUE = {
+  acceptedRisks: false,
+  acceptedUnderstand: false,
+  acceptedLiability: false,
+  acceptedLegality: false,
+  amount: '0.1'
+};
 
 export default class BetModal extends React.Component<Props, State> {
   state = {
@@ -81,7 +88,7 @@ export default class BetModal extends React.Component<Props, State> {
         closeOnDimmerClick={true}
         closeOnEscape={true}
         size="small"
-        dimmer="blurring"
+        dimmer="inverted"
         {...rest}
       >
         <Modal.Header>
@@ -103,6 +110,13 @@ export default class BetModal extends React.Component<Props, State> {
             </Form.Field>
             <Form.Field>
               <Checkbox
+                checked={value.acceptedUnderstand}
+                onChange={e => this.handleChange({ ...value, acceptedUnderstand: !value.acceptedUnderstand })}
+                label="I understand the game of squares"
+              />
+            </Form.Field>
+            <Form.Field>
+              <Checkbox
                 checked={value.acceptedRisks}
                 onChange={e => this.handleChange({ ...value, acceptedRisks: !value.acceptedRisks })}
                 label="I understand the risk for potential errors in the smart contract code to cause loss of funds"
@@ -118,9 +132,10 @@ export default class BetModal extends React.Component<Props, State> {
             </Form.Field>
             <Form.Field>
               <Checkbox
-                checked={value.acceptedUnderstand}
-                onChange={e => this.handleChange({ ...value, acceptedUnderstand: !value.acceptedUnderstand })}
-                label="I understand the game of squares"
+                checked={value.acceptedLegality}
+                onChange={e => this.handleChange({ ...value, acceptedLegality: !value.acceptedLegality })}
+                label={'Participation in this game of squares is legal in my country, province, state, ' +
+                'and city of residence'}
               />
             </Form.Field>
           </Form>
@@ -139,6 +154,7 @@ export default class BetModal extends React.Component<Props, State> {
               !score ||
               !value.acceptedRisks ||
               !value.acceptedUnderstand ||
+              !value.acceptedLegality ||
               !value.amount
             }
             positive={true}

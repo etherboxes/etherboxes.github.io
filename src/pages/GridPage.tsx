@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Grid from '../components/Grid';
+import Grid, { GridCellComponent } from '../components/Grid';
 import BetModal from '../components/BetModal';
 import TimeToGame from '../components/TimeToGame';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
@@ -33,11 +33,11 @@ export default connect(
             <TimeToGame/>
           </Header>
 
-          <Header as="h3" style={{ textAlign: 'center', marginTop: 0 }}>
+          <Grid cellComponent={GridCellComponent}/>
+
+          <Header as="h3" style={{ textAlign: 'center' }}>
             Total pot: {numberDisplay(web3.fromWei(total, 'ether'))} ETH
           </Header>
-
-          <Grid/>
 
           <BetModal
             open={Boolean(pathScore)}

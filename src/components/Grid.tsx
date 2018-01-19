@@ -2,12 +2,12 @@ import * as React from 'react';
 import { AllHTMLAttributes } from 'react';
 import * as _ from 'underscore';
 import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
-import { SquareInfoMap } from '../reducers/betsReducers';
+import { SquareInfo, SquareInfoMap } from '../reducers/betsReducers';
 import { web3 } from '../contracts';
 import numberDisplay from '../util/numberDisplay';
+import { Link } from 'react-router-dom';
 
 function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
   return (
@@ -23,17 +23,46 @@ function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
   );
 }
 
+interface CellComponentProps {
+  home: string;
+  away: string;
+  squareInfo: SquareInfo
+}
+
+export function GridCellComponent({ home, away, squareInfo: { bets, total } }: CellComponentProps) {
+  return (
+    <Link to={`/bet/${home}-${away}`}>
+      <LimitedWidthDiv>
+        <strong>{home} - {away}</strong>
+      </LimitedWidthDiv>
+      <LimitedWidthDiv>
+        {bets.length} <em>bet{bets.length !== 1 ? 's' : ''}</em>
+      </LimitedWidthDiv>
+      <LimitedWidthDiv>
+        {
+          numberDisplay(web3.fromWei(total, 'ether'))
+        } <em>ETH</em>
+      </LimitedWidthDiv>
+    </Link>
+  );
+}
+
+interface Props<T extends CellComponentProps> {
+  squares: SquareInfoMap,
+  cellComponent: React.ComponentType<T>
+}
+
 export default connect(
   ({ bets: { squares } }: AppState) => ({ squares })
 )(
-  class Grid extends React.Component<{ squares: SquareInfoMap }> {
+  class Grid<T extends CellComponentProps> extends React.Component<Props<T>> {
     render() {
-      const { squares } = this.props;
+      const { squares, cellComponent: CellComponent } = this.props;
 
       return (
         <div style={{ overflowX: 'auto' }}>
           <div style={{ minWidth: 600 }}>
-            <Table unstackable={true}>
+            <Table unstackable={true} celled={true}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell rowSpan={2} colSpan={2}/>
@@ -88,19 +117,7 @@ export default connect(
                                       key={`${home}-${away}`}
                                       style={{ minWidth: 40, maxWidth: 80 }}
                                     >
-                                      <Link to={`/bet/${home}-${away}`}>
-                                        <LimitedWidthDiv>
-                                          <strong>{home} - {away}</strong>
-                                        </LimitedWidthDiv>
-                                        <LimitedWidthDiv>
-                                          {squareInfo.bets.length} <em>bet{squareInfo.bets.length !== 1 ? 's' : ''}</em>
-                                        </LimitedWidthDiv>
-                                        <LimitedWidthDiv>
-                                          {
-                                            numberDisplay(web3.fromWei(squareInfo.total, 'ether'))
-                                          } <em>ETH</em>
-                                        </LimitedWidthDiv>
-                                      </Link>
+                                      <CellComponent home={'' + home} away={'' + away} squareInfo={squareInfo}/>
                                     </Table.Cell>
                                   );
                                 }
