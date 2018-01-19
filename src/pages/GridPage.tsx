@@ -14,7 +14,7 @@ export default class GridPage extends React.Component<Props> {
   render() {
     const { history, match: { params: { square } } } = this.props;
 
-    const betScore = typeof square === 'string' && /\d-\d/.test(square) ?
+    const betScore = typeof square === 'string' && /^\d-\d$/.test(square) ?
       square.split('-').map(s => +s) :
       null;
 
