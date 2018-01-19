@@ -51,12 +51,12 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         </p>
         <ul>
           <li>
-            <a href={`https://etherscan.io/address/${SQUARES_ADDRESS}#code`}>
+            <a target="_blank" href={`https://etherscan.io/address/${SQUARES_ADDRESS}#code`}>
               Squares Contract
             </a>
           </li>
           <li>
-            <a href={`https://etherscan.io/address/${VOTING_BASED_ORACLE_ADDRESS}#code`}>
+            <a target="_blank" href={`https://etherscan.io/address/${VOTING_BASED_ORACLE_ADDRESS}#code`}>
               Voting Based Oracle
             </a>
           </li>
