@@ -48,6 +48,8 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
           You don't have to. You are free to review the verified source code of the underlying contracts.
           I never have control over your funds, thanks to the Ethereum network.
           I built the system such that I cannot cheat it and have no incentives to lie about the score.
+          In fact, I am incentivized to be honest since the optional donation is produced
+          when collecting your winnings.
         </p>
         <ul>
           <li>
