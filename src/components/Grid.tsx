@@ -68,11 +68,13 @@ export default connect(
                                   return (
                                     <Table.Cell textAlign="center" selectable={true} key={`${home}-${away}`}>
                                       <Link to={`/bet/${home}-${away}`}>
-                                        <div><strong>{home} - {away}</strong></div>
-                                        <div>
+                                        <div style={{ whiteSpace: 'nowrap' }}>
+                                          <strong>{home} - {away}</strong>
+                                        </div>
+                                        <div style={{ whiteSpace: 'nowrap' }}>
                                           {info.bets.length} <em>bet{info.bets.length !== 1 ? 's' : ''}</em>
                                         </div>
-                                        <div>
+                                        <div style={{ whiteSpace: 'nowrap' }}>
                                           {web3.fromWei(info.total, 'ether')} <em>ETH</em>
                                         </div>
                                       </Link>
