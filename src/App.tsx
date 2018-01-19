@@ -10,7 +10,7 @@ import DiscussionPage from './pages/DiscussionPage';
 export default class App extends React.Component {
   render() {
     return (
-      <Container>
+      <Container style={{ marginTop: 10 }}>
         <AppMenu/>
 
         <Switch>

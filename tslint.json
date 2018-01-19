@@ -79,8 +79,7 @@
     ],
     "radix": true,
     "semicolon": [
-      true,
-      "always"
+      false
     ],
     "switch-default": true,
     "trailing-comma": [
