@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { BetsState } from '../reducers/betsReducers';
+import { web3 } from '../contracts';
 
 export default connect(
   ({ bets }: AppState) => ({ bets })
@@ -69,10 +70,10 @@ export default connect(
                                       <Link to={`/bet/${home}-${away}`}>
                                         <div><strong>{home} - {away}</strong></div>
                                         <div>
-                                          {info.bets.length} <em>bets</em>
+                                          {info.bets.length} <em>bet{info.bets.length !== 1 ? 's' : ''}</em>
                                         </div>
                                         <div>
-                                          {info.total} <em>ETH</em>
+                                          {web3.fromWei(info.total, 'ether')} <em>ETH</em>
                                         </div>
                                       </Link>
                                     </Table.Cell>
