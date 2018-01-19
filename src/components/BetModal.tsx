@@ -64,13 +64,16 @@ export default class BetModal extends React.Component<Props, State> {
 
     return (
       <Modal
+        closeIcon={true}
         closeOnDimmerClick={true}
         closeOnEscape={true}
         size="small"
         dimmer="blurring"
         {...rest}
       >
-        <Modal.Header>Bet on square {score ? `${score.home} - ${score.away}` : null}</Modal.Header>
+        <Modal.Header>
+          Bet on square {score ? `${score.home} - ${score.away}` : null}
+        </Modal.Header>
         <Modal.Content>
           <Form>
             <Form.Field>
