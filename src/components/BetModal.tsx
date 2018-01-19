@@ -74,7 +74,7 @@ export default class BetModal extends React.Component<Props, State> {
         <Modal.Content>
           <Form>
             <Form.Field>
-              <label>Amount</label>
+              <label>Amount in ETH</label>
               <Input
                 value={value.amount}
                 onChange={e => this.handleChange({ ...value, amount: (e.target as any).value })}
