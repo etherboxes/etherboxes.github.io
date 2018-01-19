@@ -5,7 +5,8 @@ import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
 import { ModalProps } from 'semantic-ui-react';
-import { Squares, web3 } from '../contracts';
+import { canSend, Squares, web3 } from '../contracts';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
 interface FormValue {
   acceptedRisks: boolean;
@@ -99,10 +100,16 @@ export default class BetModal extends React.Component<Props, State> {
               />
             </Form.Field>
           </Form>
+
+          {
+            !canSend ?
+              <Message warning={true}>You must have MetaMask to send bets</Message> :
+              null
+          }
         </Modal.Content>
         <Modal.Actions>
           <Button
-            disabled={!score || !value.acceptedRisks || !value.acceptedUnderstand || !value.amount}
+            disabled={!canSend || !score || !value.acceptedRisks || !value.acceptedUnderstand || !value.amount}
             positive={true}
             onClick={this.placeBet}
           >
