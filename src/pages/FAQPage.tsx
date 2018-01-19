@@ -77,8 +77,7 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
 
         <Header as="h2">Is this legal?</Header>
         <p>
-          I am never in possession of any money. I do not collect any fees. I simply wrote the code.
-          It is probably as legal as the common office game of squares.
+          I am never in possession of any money, and I do not collect any fees for this game.
         </p>
 
         <Header as="h2">Can I run this site locally?</Header>

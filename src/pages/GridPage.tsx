@@ -22,22 +22,25 @@ export default class GridPage extends React.Component<Props> {
       <div>
         <Grid/>
 
-        <Modal open={Boolean(betScore)} dimmer="blurring" onClose={() => history.push('/')}>
+        <Modal size="small" open={Boolean(betScore)} dimmer="blurring" onClose={() => history.push('/')}>
           <Modal.Header>Bet on {square}</Modal.Header>
           <Modal.Content>
             <Form>
               <Form.Field>
                 <label>Amount</label>
-                <Input type="number" step={0.001} min={0} placeholder="0.001eth"/>
+                <Input type="number" required={true} step={0.001} min={0.001} placeholder="0.001eth"/>
               </Form.Field>
               <Form.Field>
-                <Checkbox label="I agree that this I understand the risk and the underlying contract"/>
+                <Checkbox label="I agree that I understand the risks of using the Ethereum Squares contract"/>
+              </Form.Field>
+              <Form.Field>
+                <Checkbox label="I agree that I understand the game of squares"/>
               </Form.Field>
             </Form>
           </Modal.Content>
           <Modal.Actions>
             <Button positive={true}>
-              Place wager
+              Place bet
             </Button>
           </Modal.Actions>
         </Modal>
