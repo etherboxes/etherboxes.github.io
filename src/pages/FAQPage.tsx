@@ -78,7 +78,6 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         <p>
           I am never in possession of any money. I do not collect any fees. I simply wrote the code.
           It is probably as legal as the common office game of squares.
-          Check with your local government regarding the legality of participating in such a contest.
         </p>
 
         <Header as="h2">Can I run this site locally?</Header>
