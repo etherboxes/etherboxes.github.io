@@ -29,21 +29,21 @@ export default class Grid extends React.Component<{}> {
                   <Table.Row key={away}>
                     {
                       away === 0 ? (
-                        <Table.HeaderCell rowSpan={10}>
+                        <Table.HeaderCell
+                          textAlign="center"
+                          verticalAlign="middle"
+                          rowSpan={10}
+                          style={{ width: 40 }}
+                        >
                           <div
-                            style={{
-                              transform: 'rotate(-90deg)',
-                              transformOrigin: '50%',
-                              whiteSpace: 'nowrap',
-                              width: 30
-                            }}
+                            style={{ transform: 'rotate(-90deg) translateX(-30px)', whiteSpace: 'nowrap', width: 40 }}
                           >
                             Away team score
                           </div>
                         </Table.HeaderCell>
                       ) : null
                     }
-                    <Table.HeaderCell textAlign="right">{away}</Table.HeaderCell>
+                    <Table.HeaderCell textAlign="center">{away}</Table.HeaderCell>
                     {
                       _.range(0, 10)
                         .map(
