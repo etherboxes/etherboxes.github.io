@@ -42,17 +42,26 @@ export default class BetModal extends React.Component<Props, State> {
     const { value } = this.state;
 
     if (score) {
-      web3.eth.getAccounts((error, accounts) => {
-        if (error) {
+      web3.eth.getAccounts((accountsError, accounts) => {
+        if (accountsError) {
           alert('failed to create transaction');
         } else {
-          Squares.bet(
-            score.home, score.away,
-            { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
-            (betError, result) => {
-              console.log(betError, result);
-            }
-          );
+          if (accounts.length === 0) {
+            alert('must have at least one unlocked account!');
+          } else {
+            Squares.bet(
+              score.home, score.away,
+              { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
+              (betError, result) => {
+                if (betError) {
+                  alert('failed to place bet!');
+                } else {
+                  alert(`succeeded in placing bet of ${value.amount} ETH on square ${score.home} - ${score.away}`);
+                  console.log(betError, result);
+                }
+              }
+            );
+          }
         }
       });
     }
