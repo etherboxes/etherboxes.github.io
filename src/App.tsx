@@ -15,6 +15,7 @@ export default class App extends React.Component {
 
         <Switch>
           <Route path="/" exact={true} component={GridPage}/>
+          <Route path="/bet/:square" exact={true} component={GridPage}/>
           <Route path="/discussion" exact={true} component={DiscussionPage}/>
           <Route path="/faq" exact={true} component={FAQPage}/>
           <Route path="*" component={NotFoundPage}/>

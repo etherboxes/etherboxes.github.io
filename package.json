@@ -21,11 +21,19 @@
     "@types/node": "^9.3.0",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
+    "@types/react-redux": "^5.0.14",
     "@types/react-router-dom": "^4.2.3",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
     "@types/underscore": "^1.8.7",
     "gh-pages": "^1.1.0",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.77.2",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "web3": "^0.20.4",
+    "web3-typescript-typings": "^0.9.4"
   }
 }

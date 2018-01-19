@@ -1,6 +1,7 @@
 import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { SQUARES_ADDRESS, VOTING_BASED_ORACLE_ADDRESS } from '../util/constants';
 
 export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
   render() {
@@ -50,12 +51,12 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         </p>
         <ul>
           <li>
-            <a href="https://etherscan.io/address/0x96e9ace417632353da8133f8471769c796641c30#code">
+            <a href={`https://etherscan.io/address/${SQUARES_ADDRESS}#code`}>
               Squares Contract
             </a>
           </li>
           <li>
-            <a href="https://etherscan.io/address/0x42b81fb65d24f547aee4f012e6953e41d0be0d5e#code">
+            <a href={`https://etherscan.io/address/${VOTING_BASED_ORACLE_ADDRESS}#code`}>
               Voting Based Oracle
             </a>
           </li>

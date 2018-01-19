@@ -15,11 +15,17 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
+  "files": [
+    "./node_modules/web3-typescript-typings/index.d.ts"
+  ],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules",
     "build",
