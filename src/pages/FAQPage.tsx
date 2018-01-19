@@ -82,11 +82,6 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
           Yes. For each time a square wins, it pays out an 25% of the pot.
         </p>
 
-        <Header as="h2">Is this legal?</Header>
-        <p>
-          I am never in possession of any money, and I do not collect any fees for this game.
-        </p>
-
         <Header as="h2">What is the &quot;donation percentage?&quot;</Header>
         <p>
           When you collect your winnings, you may optionally specify a percentage of the winnings to donate to
