@@ -20,7 +20,7 @@ export default class GridPage extends React.Component<Props> {
 
     return (
       <div>
-        <Header as="h3">
+        <Header as="h3" style={{ textAlign: 'center' }}>
           <TimeToGame/>
         </Header>
 

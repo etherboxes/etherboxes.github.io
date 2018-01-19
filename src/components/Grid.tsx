@@ -16,8 +16,7 @@ function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
         ...props.style,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        width: 100
+        textOverflow: 'ellipsis'
       }}
     />
   );
@@ -82,7 +81,12 @@ export default connect(
                                   const info = bets[ `${home}-${away}` ];
 
                                   return (
-                                    <Table.Cell textAlign="center" selectable={true} key={`${home}-${away}`}>
+                                    <Table.Cell
+                                      textAlign="center"
+                                      selectable={true}
+                                      key={`${home}-${away}`}
+                                      style={{ minWidth: 40, maxWidth: 80 }}
+                                    >
                                       <Link to={`/bet/${home}-${away}`}>
                                         <LimitedWidthDiv>
                                           <strong>{home} - {away}</strong>
