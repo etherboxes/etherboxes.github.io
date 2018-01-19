@@ -33,7 +33,7 @@ export default connect(
             <TimeToGame/>
           </Header>
 
-          <Header as="h3" style={{ textAlign: 'center' }}>
+          <Header as="h3" style={{ textAlign: 'center', marginTop: 0 }}>
             Total pot: {numberDisplay(web3.fromWei(total, 'ether'))} ETH
           </Header>
 
