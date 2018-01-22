@@ -63,8 +63,6 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
         total = total.add(b.args.stake);
       });
 
-      console.log(bets);
-
       return {
         total: total.valueOf(),
         squares: _.mapObject(

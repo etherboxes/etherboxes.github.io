@@ -32,6 +32,10 @@ export default class TimeToGame extends React.Component<{}, { gameTime: number |
       );
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   render() {
     const { gameTime } = this.state;
 
@@ -41,7 +45,7 @@ export default class TimeToGame extends React.Component<{}, { gameTime: number |
 
     return (
       <span>
-        Betting ends <strong>{moment(gameTime * 1000).fromNow()}</strong>
+        betting ends <strong>{moment(gameTime * 1000).fromNow()}</strong>
       </span>
     );
   }

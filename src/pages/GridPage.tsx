@@ -6,8 +6,7 @@ import TimeToGame from '../components/TimeToGame';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
-import numberDisplay from '../util/numberDisplay';
-import { web3 } from '../contracts';
+import { weiDisplay } from '../util/numberDisplay';
 
 interface Props extends RouteComponentProps<{ square?: string }> {
 }
@@ -30,14 +29,13 @@ export default connect(
       return (
         <div>
           <Header as="h2" style={{ textAlign: 'center' }}>
-            <TimeToGame/>
+            The "Big Game" on Feb 4 @ 6:30PM Eastern
+          </Header>
+          <Header as="h3" style={{ textAlign: 'center', marginTop: 8 }}>
+            <div>Total pot: {weiDisplay(total)} ETH, <TimeToGame/></div>
           </Header>
 
           <Grid cellComponent={GridCellComponent}/>
-
-          <Header as="h3" style={{ textAlign: 'center' }}>
-            Total pot: {numberDisplay(web3.fromWei(total, 'ether'))} ETH
-          </Header>
 
           <BetModal
             open={Boolean(pathScore)}

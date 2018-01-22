@@ -92,7 +92,7 @@ export default class BetModal extends React.Component<Props, State> {
         {...rest}
       >
         <Modal.Header>
-          Bet on square {score ? `${score.home} - ${score.away}` : null}
+          Bet on square {score ? `Philadelphia ${score.home} to New England ${score.away}` : null}
         </Modal.Header>
         <Modal.Content>
           <Form>

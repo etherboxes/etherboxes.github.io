@@ -62,11 +62,11 @@ export default connect(
       return (
         <div style={{ overflowX: 'auto' }}>
           <div style={{ minWidth: 600 }}>
-            <Table unstackable={true} celled={true}>
+            <Table unstackable={true} celled={true} fixed={true}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell rowSpan={2} colSpan={2}/>
-                  <Table.HeaderCell textAlign="center" colSpan={10}>Home team score</Table.HeaderCell>
+                  <Table.HeaderCell textAlign="center" colSpan={10}>Philadelphia team score</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
                   {
@@ -89,21 +89,24 @@ export default connect(
                                 textAlign="center"
                                 verticalAlign="middle"
                                 rowSpan={10}
-                                style={{ width: 40 }}
                               >
                                 <div
                                   style={{
                                     transform: 'rotate(-90deg) translateX(-30px)',
-                                    whiteSpace: 'nowrap',
-                                    width: 40
+                                    whiteSpace: 'nowrap'
                                   }}
                                 >
-                                  Away team score
+                                  New England team score
                                 </div>
                               </Table.HeaderCell>
                             ) : null
                           }
-                          <Table.HeaderCell textAlign="center">{away}</Table.HeaderCell>
+                          <Table.HeaderCell
+                            celled={true}
+                            style={{ minWidth: '2em', textAlign: 'center' }}
+                          >
+                            {away}
+                          </Table.HeaderCell>
                           {
                             _.range(0, 10)
                               .map(
