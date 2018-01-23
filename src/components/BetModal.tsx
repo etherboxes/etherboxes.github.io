@@ -30,7 +30,7 @@ const DEFAULT_VALUE = {
   acceptedUnderstand: false,
   acceptedLiability: false,
   acceptedLegality: false,
-  amount: '0.1'
+  amount: ''
 };
 
 export default class BetModal extends React.Component<Props, State> {
@@ -82,6 +82,14 @@ export default class BetModal extends React.Component<Props, State> {
     const { score, ...rest } = this.props;
     const { value } = this.state;
 
+    const ready = canSend &&
+      value.acceptedLiability &&
+      score &&
+      value.acceptedRisks &&
+      value.acceptedUnderstand &&
+      value.acceptedLegality &&
+      value.amount;
+
     return (
       <Modal
         closeIcon={true}
@@ -103,9 +111,9 @@ export default class BetModal extends React.Component<Props, State> {
                 onChange={e => this.handleChange({ ...value, amount: (e.target as any).value })}
                 type="number"
                 required={true}
-                step={0.001}
-                min={0.001}
-                placeholder="0.001eth"
+                step={0.01}
+                min={0.01}
+                placeholder="0.01"
               />
             </Form.Field>
             <Form.Field>
@@ -142,26 +150,30 @@ export default class BetModal extends React.Component<Props, State> {
 
           {
             !canSend ?
-              <Message warning={true}>You must have MetaMask to send bets</Message> :
+              (
+                <Message warning={true}>
+                  You must have <a target="_blank" href="https://metamask.io/#how-it-works">MetaMask</a> to send bets
+                </Message>
+              ) :
               null
           }
         </Modal.Content>
         <Modal.Actions>
+          {
+            !ready && canSend ?
+              (
+                <small>
+                  Please accept all conditions and specify a valid amount
+                </small>
+              ) : null
+          }
           <Button
-            disabled={
-              !canSend ||
-              !value.acceptedLiability ||
-              !score ||
-              !value.acceptedRisks ||
-              !value.acceptedUnderstand ||
-              !value.acceptedLegality ||
-              !value.amount
-            }
+            disabled={!ready}
             positive={true}
             onClick={this.placeBet}
-          >
-            Place bet
-          </Button>
+            content="Place bet"
+            secondary={true}
+          />
         </Modal.Actions>
       </Modal>
     );
