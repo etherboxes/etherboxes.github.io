@@ -9,6 +9,11 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
       <div>
         <Header as="h1">FAQ</Header>
         <Header as="h2">How does it work?</Header>
+        <p>
+          The bets are held in entirely decentralized escrow. The oracle reports the score and those
+          who have stakes in the grid vote to confirm the oracle's score. Once a score is confirmed,
+          the winnings are collected by the winners.
+        </p>
         <ol>
           <li>
             You pick a square and send a transaction to the ethereum network with your choice and the amount of ether
@@ -111,8 +116,8 @@ export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
         <Header as="h2">Can I run my own game of squares?</Header>
         <p>
           Yes, you are free to fork the code for
-          the <a href="https://github.com/ethersquares/ethersquares.github.io">site</a> and the
-          <a href="https://github.com/ethersquares/ethersquares-contracts">contracts</a>,
+          the <a href="https://github.com/ethersquares/ethersquares.github.io">site</a> and
+          the <a href="https://github.com/ethersquares/ethersquares-contracts">contracts</a>,
           or deploy it as is.
         </p>
       </div>
