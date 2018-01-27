@@ -6,6 +6,7 @@ import FAQPage from './pages/FAQPage';
 import GridPage from './pages/GridPage';
 import NotFoundPage from './pages/NotFoundPage';
 import DiscussionPage from './pages/DiscussionPage';
+import TermsConditions from './pages/TermsConditions';
 
 export default class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends React.Component {
           <Route path="/bet/:square" exact={true} component={GridPage}/>
           <Route path="/discussion" exact={true} component={DiscussionPage}/>
           <Route path="/faq" exact={true} component={FAQPage}/>
+          <Route path="/terms-and-conditions" component={TermsConditions}/>
           <Route path="*" component={NotFoundPage}/>
         </Switch>
 

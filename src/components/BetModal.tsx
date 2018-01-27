@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { HTMLAttributes } from 'react';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Checkbox from 'semantic-ui-react/dist/commonjs/modules/Checkbox/Checkbox';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
@@ -9,10 +9,7 @@ import { canSend, Squares, web3 } from '../contracts';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
 
 interface FormValue {
-  acceptedRisks: boolean;
-  acceptedUnderstand: boolean;
-  acceptedLiability: boolean;
-  acceptedLegality: boolean;
+  acceptedToc: boolean;
   amount: string;
 }
 
@@ -26,12 +23,15 @@ interface State {
 }
 
 const DEFAULT_VALUE = {
-  acceptedRisks: false,
-  acceptedUnderstand: false,
-  acceptedLiability: false,
-  acceptedLegality: false,
+  acceptedToc: false,
   amount: ''
 };
+
+function MetaMaskLink(props: HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <a target="_blank" href="https://metamask.io/#how-it-works" {...props}>MetaMask</a>
+  );
+}
 
 export default class BetModal extends React.Component<Props, State> {
   state = {
@@ -60,7 +60,7 @@ export default class BetModal extends React.Component<Props, State> {
           } else {
             Squares.bet(
               score.home, score.away,
-              { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
+              { value: web3.toWei(value.amount, 'ether'), from: accounts[0] },
               (betError, result) => {
                 console.log(betError, result);
 
@@ -79,16 +79,12 @@ export default class BetModal extends React.Component<Props, State> {
   };
 
   render() {
-    const { score, ...rest } = this.props;
+    const { score, onSuccess, ...rest } = this.props;
     const { value } = this.state;
 
-    const ready = canSend &&
-      value.acceptedLiability &&
-      score &&
-      value.acceptedRisks &&
-      value.acceptedUnderstand &&
-      value.acceptedLegality &&
-      value.amount;
+    const isValueValid = value.amount && (+value.amount > 0);
+
+    const ready = value.acceptedToc && score;
 
     return (
       <Modal
@@ -116,43 +112,20 @@ export default class BetModal extends React.Component<Props, State> {
                 placeholder="0.01"
               />
             </Form.Field>
-            <Form.Field>
-              <Checkbox
-                checked={value.acceptedUnderstand}
-                onChange={e => this.handleChange({ ...value, acceptedUnderstand: !value.acceptedUnderstand })}
-                label="I understand the game of squares"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox
-                checked={value.acceptedRisks}
-                onChange={e => this.handleChange({ ...value, acceptedRisks: !value.acceptedRisks })}
-                label="I understand the risk for potential errors in the smart contract code to cause loss of funds"
-              />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox
-                checked={value.acceptedLiability}
-                onChange={e => this.handleChange({ ...value, acceptedLiability: !value.acceptedLiability })}
-                label={'I agree that the developer is not liable for any risk ' +
-                'associated with my use of the Ethereum squares contract'}
-              />
-            </Form.Field>
-            <Form.Field>
-              <Checkbox
-                checked={value.acceptedLegality}
-                onChange={e => this.handleChange({ ...value, acceptedLegality: !value.acceptedLegality })}
-                label={'Participation in this game of squares is legal in my country, province, state, ' +
-                'and city of residence'}
-              />
-            </Form.Field>
+            <Form.Checkbox
+              type="checkbox"
+              required={true}
+              checked={value.acceptedToc}
+              onChange={e => this.handleChange({ ...value, acceptedToc: !value.acceptedToc })}
+              label="I accept the terms and conditions"
+            />
           </Form>
 
           {
             !canSend ?
               (
                 <Message warning={true}>
-                  You must have <a target="_blank" href="https://metamask.io/#how-it-works">MetaMask</a> to send bets
+                  You must have <MetaMaskLink/> or use a browser that supports web3 to send bets
                 </Message>
               ) :
               null
@@ -163,12 +136,18 @@ export default class BetModal extends React.Component<Props, State> {
             !ready && canSend ?
               (
                 <small>
-                  Please accept all conditions and specify a valid amount
+                  Please {
+                  [
+                    value.acceptedToc ? null : 'accept the terms and conditions',
+                    isValueValid ? null : 'specify a valid bet amount'
+                  ].filter(s => s !== null)
+                    .join(' and ')
+                }
                 </small>
               ) : null
           }
           <Button
-            disabled={!ready}
+            disabled={!ready || !canSend}
             positive={true}
             onClick={this.placeBet}
             content="Place bet"

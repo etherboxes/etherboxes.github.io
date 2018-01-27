@@ -6,7 +6,7 @@ interface Props {
 const loadScripts = (function () {
   let loaded = false;
   return function () {
-    if (loaded) {
+    if (loaded && (window as any).DISQUS) {
       (window as any).DISQUS.reset();
     }
     loaded = true;

@@ -19,6 +19,7 @@ export default class AppMenu extends React.Component<AppMenuProps> {
         <MenuLink name="Grid" to="/"/>
         <MenuLink name="FAQ" to="/faq"/>
         <MenuLink name="Discussion" to="/discussion"/>
+        <MenuLink name="Terms and Conditions" to="/terms-and-conditions"/>
       </Menu>
     );
   }

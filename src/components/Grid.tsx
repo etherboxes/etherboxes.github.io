@@ -62,17 +62,25 @@ export default connect(
       return (
         <div style={{ overflowX: 'auto' }}>
           <div style={{ minWidth: 600 }}>
-            <Table unstackable={true} celled={true} fixed={true}>
+            <Table unstackable={true} celled={true}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell rowSpan={2} colSpan={2}/>
-                  <Table.HeaderCell textAlign="center" colSpan={10}>Philadelphia team score</Table.HeaderCell>
+                  <Table.HeaderCell textAlign="center" colSpan={10}>Philadelphia team
+                    score</Table.HeaderCell>
                 </Table.Row>
                 <Table.Row>
                   {
                     _.range(0, 10)
                       .map(
-                        home => <Table.HeaderCell textAlign="center" key={home}>{home}</Table.HeaderCell>
+                        home => (
+                          <Table.HeaderCell
+                            textAlign="center"
+                            key={home}
+                          >
+                            {home}
+                          </Table.HeaderCell>
+                        )
                       )
                   }
                 </Table.Row>
@@ -93,7 +101,8 @@ export default connect(
                                 <div
                                   style={{
                                     transform: 'rotate(-90deg) translateX(-30px)',
-                                    whiteSpace: 'nowrap'
+                                    whiteSpace: 'nowrap',
+                                    width: 40
                                   }}
                                 >
                                   New England team score
@@ -102,7 +111,6 @@ export default connect(
                             ) : null
                           }
                           <Table.HeaderCell
-                            celled={true}
                             style={{ minWidth: '2em', textAlign: 'center' }}
                           >
                             {away}
@@ -111,7 +119,7 @@ export default connect(
                             _.range(0, 10)
                               .map(
                                 home => {
-                                  const squareInfo = squares[ `${home}-${away}` ];
+                                  const squareInfo = squares[`${home}-${away}`];
 
                                   return (
                                     <Table.Cell
@@ -120,7 +128,11 @@ export default connect(
                                       key={`${home}-${away}`}
                                       style={{ minWidth: 40, maxWidth: 80 }}
                                     >
-                                      <CellComponent home={'' + home} away={'' + away} squareInfo={squareInfo}/>
+                                      <CellComponent
+                                        home={'' + home}
+                                        away={'' + away}
+                                        squareInfo={squareInfo}
+                                      />
                                     </Table.Cell>
                                   );
                                 }
