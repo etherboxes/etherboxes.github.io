@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { HTMLAttributes } from 'react';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
 import { ModalProps } from 'semantic-ui-react';
 import { canSend, Squares, web3 } from '../contracts';
-import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
+import BetStatistics from './BetStatistics';
+import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 
 interface FormValue {
   acceptedToc: boolean;
@@ -26,12 +26,6 @@ const DEFAULT_VALUE = {
   acceptedToc: false,
   amount: '0.01'
 };
-
-function MetaMaskLink(props: HTMLAttributes<HTMLSpanElement>) {
-  return (
-    <a target="_blank" href="https://metamask.io/#how-it-works" {...props}>MetaMask</a>
-  );
-}
 
 export default class BetModal extends React.Component<Props, State> {
   state = {
@@ -121,13 +115,11 @@ export default class BetModal extends React.Component<Props, State> {
             />
           </Form>
 
+          <Divider horizontal={true}>Results</Divider>
+
           {
-            !canSend ?
-              (
-                <Message warning={true}>
-                  You must have <MetaMaskLink/> or use a browser that supports web3 to send bets
-                </Message>
-              ) :
+            score ?
+              <BetStatistics score={score} amount={+value.amount}/> :
               null
           }
         </Modal.Content>
@@ -138,6 +130,7 @@ export default class BetModal extends React.Component<Props, State> {
                 <small>
                   Please {
                   [
+                    canSend ? null : 'use a browser that supports web3 or MetaMask',
                     value.acceptedToc ? null : 'accept the terms and conditions',
                     isValueValid ? null : 'specify a valid bet amount'
                   ].filter(s => s !== null)
