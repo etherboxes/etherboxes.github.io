@@ -19,7 +19,7 @@ export default connect(
     public render() {
       const { score: { home, away }, total, amount, squares } = this.props;
 
-      const squareTotal = squares[`${home}-${away}`].total;
+      const { total: squareTotal } = squares[`${home}-${away}`];
 
       const betAmountWei = new BigNumber(web3.toWei(amount, 'ether'));
 
@@ -28,7 +28,7 @@ export default connect(
         .mul(100);
 
       const quarterWinnings = percentageStake
-        .mul(total)
+        .mul(betAmountWei.add(total))
         .div(100)
         .div(4);
 
