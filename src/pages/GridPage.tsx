@@ -7,27 +7,28 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { weiDisplay } from '../util/numberDisplay';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 
-interface Props extends RouteComponentProps<{ square?: string }> {
+interface GridPageProps extends RouteComponentProps<{ square?: string }> {
 }
 
 export default connect(
-  ({ bets: { total } }: AppState) => ({ total })
+  ({ bets: { total, loading } }: AppState) => ({ total, loading })
 )(
-  class GridPage extends React.Component<Props & { total: string }> {
+  class GridPage extends React.Component<GridPageProps & { loading: boolean; total: string }> {
     closeModal = () => this.props.history.push('/');
 
     render() {
-      const { match: { params: { square } }, total } = this.props;
+      const { match: { params: { square } }, total, loading } = this.props;
 
       const pathScore = typeof square === 'string' && /^\d-\d$/.test(square) ?
         square.split('-').map(s => +s) :
         null;
 
-      const score = pathScore ? { home: pathScore[ 0 ], away: pathScore[ 1 ] } : null;
+      const score = pathScore ? { home: pathScore[0], away: pathScore[1] } : null;
 
       return (
-        <div>
+        <Segment loading={loading}>
           <Header as="h2" style={{ textAlign: 'center' }}>
             The "Big Game" on Feb 4 @ 6:30PM Eastern
           </Header>
@@ -38,12 +39,12 @@ export default connect(
           <Grid cellComponent={GridCellComponent}/>
 
           <BetModal
-            open={Boolean(pathScore)}
+            open={Boolean(pathScore) && !loading}
             score={score}
             onClose={this.closeModal}
             onSuccess={this.closeModal}
           />
-        </div>
+        </Segment>
       );
     }
   }

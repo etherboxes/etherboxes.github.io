@@ -17,11 +17,13 @@ export interface SquareInfoMap {
 }
 
 export interface BetsState {
+  loading: boolean;
   total: string;
   squares: SquareInfoMap;
 }
 
 const DEFAULT_STATE: BetsState = {
+  loading: false,
   total: '0',
   squares: {}
 };
@@ -33,7 +35,7 @@ const DEFAULT_SQUARE_INFO: SquareInfo = {
 
 _.range(0, 10).map(
   home => _.range(0, 10).map(away => {
-    DEFAULT_STATE.squares[ `${home}-${away}` ] = DEFAULT_SQUARE_INFO;
+    DEFAULT_STATE.squares[`${home}-${away}`] = DEFAULT_SQUARE_INFO;
   })
 );
 
@@ -48,8 +50,11 @@ interface BetEvent {
 
 export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFAULT_STATE, action: Action): BetsState {
   switch (action.type) {
-    case 'BETS_LOADED': {
+    case 'BETS_LOADING': {
+      return { ...state, loading: true };
+    }
 
+    case 'BETS_LOADED': {
       const bets: BetEvent[] = (action as any).payload as any;
 
       const bySquare = _.groupBy(
@@ -64,11 +69,12 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
       });
 
       return {
+        loading: false,
         total: total.valueOf(),
         squares: _.mapObject(
           DEFAULT_STATE.squares,
           (value, key) => {
-            const eventsBySquare = bySquare[ key ];
+            const eventsBySquare = bySquare[key];
 
             if (!eventsBySquare) {
               return DEFAULT_SQUARE_INFO;
@@ -98,12 +104,12 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
       const { args: { better, home, away, stake } }: BetEvent = (action as any).payload;
 
       const key = `${home.valueOf()}-${away.valueOf()}`;
-      const square = state.squares[ key ];
+      const square = state.squares[key];
 
       return {
         ...state,
         total: new BigNumber(stake).add(state.total).valueOf(),
-        [ key ]: {
+        [key]: {
           total: new BigNumber(stake).add(square.total).valueOf(),
           bets: square.bets.concat([
             { better, stake: stake.valueOf() }

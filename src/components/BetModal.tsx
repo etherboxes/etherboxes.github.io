@@ -24,7 +24,7 @@ interface State {
 
 const DEFAULT_VALUE = {
   acceptedToc: false,
-  amount: ''
+  amount: '0.01'
 };
 
 function MetaMaskLink(props: HTMLAttributes<HTMLSpanElement>) {
@@ -84,7 +84,7 @@ export default class BetModal extends React.Component<Props, State> {
 
     const isValueValid = value.amount && (+value.amount > 0);
 
-    const ready = value.acceptedToc && score;
+    const ready = value.acceptedToc && score && isValueValid;
 
     return (
       <Modal

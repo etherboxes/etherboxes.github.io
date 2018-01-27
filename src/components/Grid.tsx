@@ -9,15 +9,13 @@ import { web3 } from '../contracts';
 import numberDisplay from '../util/numberDisplay';
 import { Link } from 'react-router-dom';
 
-function LimitedWidthDiv(props: AllHTMLAttributes<HTMLDivElement>) {
+function NoWrapDiv(props: AllHTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...props}
       style={{
         ...props.style,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
+        whiteSpace: 'nowrap'
       }}
     />
   );
@@ -32,30 +30,30 @@ interface CellComponentProps {
 export function GridCellComponent({ home, away, squareInfo: { bets, total } }: CellComponentProps) {
   return (
     <Link to={`/bet/${home}-${away}`}>
-      <LimitedWidthDiv>
+      <NoWrapDiv>
         <strong>{home} - {away}</strong>
-      </LimitedWidthDiv>
-      <LimitedWidthDiv>
+      </NoWrapDiv>
+      <NoWrapDiv>
         {bets.length} <em>bet{bets.length !== 1 ? 's' : ''}</em>
-      </LimitedWidthDiv>
-      <LimitedWidthDiv>
+      </NoWrapDiv>
+      <NoWrapDiv>
         {
           numberDisplay(web3.fromWei(total, 'ether'))
         } <em>ETH</em>
-      </LimitedWidthDiv>
+      </NoWrapDiv>
     </Link>
   );
 }
 
-interface Props<T extends CellComponentProps> {
-  squares: SquareInfoMap,
-  cellComponent: React.ComponentType<T>
+interface GridProps<T extends CellComponentProps> {
+  squares: SquareInfoMap;
+  cellComponent: React.ComponentType<T>;
 }
 
 export default connect(
   ({ bets: { squares } }: AppState) => ({ squares })
 )(
-  class Grid<T extends CellComponentProps> extends React.Component<Props<T>> {
+  class Grid<T extends CellComponentProps> extends React.Component<GridProps<T>> {
     render() {
       const { squares, cellComponent: CellComponent } = this.props;
 
@@ -126,7 +124,6 @@ export default connect(
                                       textAlign="center"
                                       selectable={true}
                                       key={`${home}-${away}`}
-                                      style={{ minWidth: 40, maxWidth: 80 }}
                                     >
                                       <CellComponent
                                         home={'' + home}
