@@ -15,7 +15,7 @@ const MenuLink = ({ name, to }: { to: string; name: string; }) => (
 export default class AppMenu extends React.Component<AppMenuProps> {
   render() {
     return (
-      <Menu pointing={true} secondary={true}>
+      <Menu pointing={true} secondary={true} stackable={true}>
         <MenuLink name="Grid" to="/"/>
         <MenuLink name="FAQ" to="/faq"/>
         <MenuLink name="Discussion" to="/discussion"/>
