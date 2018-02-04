@@ -3,19 +3,22 @@ import { RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import * as _ from 'underscore';
-import { Form, Input, Message, Segment } from 'semantic-ui-react';
+import { Form, Input, Message, Segment, Table } from 'semantic-ui-react';
 import { web3 } from '../contracts';
-import { Bet } from '../reducers/betsReducers';
+import { Bet, SquareInfoMap } from '../reducers/betsReducers';
 import { weiDisplay } from '../util/numberDisplay';
+import BigNumber from 'web3/bower/bignumber.js/bignumber';
 import Timer = NodeJS.Timer;
 
 interface BetLookupPageProps extends RouteComponentProps<{ addr?: string }> {
-  allBets: Bet[]
+  allBets: Bet[];
+  squares: SquareInfoMap;
+  total: string;
   loading: boolean;
 }
 
 export default connect(
-  ({ bets: { all, loading } }: AppState) => ({ allBets: all, loading })
+  ({ bets: { all, loading, squares, total } }: AppState) => ({ allBets: all, loading, squares, total })
 )(
   class BetLookupPage extends React.Component<BetLookupPageProps, { accounts: string[] }> {
     state = {
@@ -45,10 +48,23 @@ export default connect(
     };
 
     render() {
-      const { allBets, history, loading, match: { params } } = this.props;
+      const { allBets, history, loading, squares, total, match: { params: { addr } } } = this.props;
       const { accounts } = this.state;
 
-      const address = params.addr;
+      const userBets: Bet[] = addr ? _.filter(
+        allBets,
+        ({ better }) => better === addr
+      ) : [];
+
+      const userSquareTotals: { [square: string]: string } = {};
+
+      _.each(
+        userBets,
+        ({ home, away, better, stake }) => {
+          const key = `${home}-${away}`;
+          userSquareTotals[ key ] = (new BigNumber(stake)).add(userSquareTotals[ key ] || 0).valueOf();
+        }
+      );
 
       return (
         <Segment loading={loading}>
@@ -58,7 +74,7 @@ export default connect(
               <Input
                 type="text"
                 placeholder="0x000000..."
-                value={address || ''}
+                value={addr || ''}
                 onChange={({ target: { value } }: any) => history.push(`/address/${value}`)}
                 list="my-accounts"
               />
@@ -74,22 +90,52 @@ export default connect(
           </Form>
 
           {
-            address && web3.isAddress(address) ? (
-                <dl>
-                  {
-                    _.chain(allBets)
-                      .filter(({ better }) => better === address)
-                      .map(({ stake, home, away, better }, ix) => (
-                        <div key={ix}>
-                          Bet {weiDisplay(stake)} ETH on square {home}, {away}
-                        </div>
-                      ))
-                      .value()
-                  }
-                </dl>
+            addr && web3.isAddress(addr) ? (
+                <Table>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>Square</Table.HeaderCell>
+                      <Table.HeaderCell>Stake</Table.HeaderCell>
+                      <Table.HeaderCell>Ownership</Table.HeaderCell>
+                      <Table.HeaderCell>Winnings per quarter</Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
+                    {
+                      _.map(
+                        userSquareTotals,
+                        (userSquareStake, square) => (
+                          <Table.Row key={square}>
+                            <Table.Cell>{square}</Table.Cell>
+                            <Table.Cell>{weiDisplay(userSquareStake)} ETH</Table.Cell>
+                            <Table.Cell>
+                              {
+                                (new BigNumber(userSquareStake))
+                                  .div(squares[ square ].total)
+                                  .mul(100)
+                                  .round(5)
+                                  .valueOf()
+                              }%
+                            </Table.Cell>
+                            <Table.Cell>
+                              {
+                                weiDisplay(
+                                  (new BigNumber(userSquareStake))
+                                    .div(squares[ square ].total)
+                                    .mul(total)
+                                    .round(5)
+                                )
+                              } ETH
+                            </Table.Cell>
+                          </Table.Row>
+                        )
+                      )
+                    }
+                  </Table.Body>
+                </Table>
               ) :
               <Message warning={true}>
-                Input an address to look up bets
+                Input a valid address to look up bets
               </Message>
           }
         </Segment>
