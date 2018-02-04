@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AllHTMLAttributes } from 'react';
 import * as _ from 'underscore';
-import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
+import { Table } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { SquareInfo, SquareInfoMap } from '../reducers/betsReducers';
@@ -117,7 +117,7 @@ export default connect(
                             _.range(0, 10)
                               .map(
                                 home => {
-                                  const squareInfo = squares[`${home}-${away}`];
+                                  const squareInfo = squares[ `${home}-${away}` ];
 
                                   return (
                                     <Table.Cell

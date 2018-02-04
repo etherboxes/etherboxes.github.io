@@ -1,7 +1,7 @@
 import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import { SQUARES_ADDRESS, VOTING_BASED_ORACLE_ADDRESS } from '../util/constants';
+import { Header } from 'semantic-ui-react';
 
 export default class FAQPage extends React.Component<RouteComponentProps<{}>> {
   render() {

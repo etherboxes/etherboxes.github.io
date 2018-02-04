@@ -1,12 +1,7 @@
 import * as React from 'react';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
-import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
-import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
-import { ModalProps } from 'semantic-ui-react';
+import { Button, Divider, Form, Input, Modal, ModalProps } from 'semantic-ui-react';
 import { canSend, Squares, web3 } from '../contracts';
 import BetStatistics from './BetStatistics';
-import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 
 interface FormValue {
   acceptedToc: boolean;
@@ -54,7 +49,7 @@ export default class BetModal extends React.Component<Props, State> {
           } else {
             Squares.bet(
               score.home, score.away,
-              { value: web3.toWei(value.amount, 'ether'), from: accounts[0] },
+              { value: web3.toWei(value.amount, 'ether'), from: accounts[ 0 ] },
               (betError, result) => {
                 console.log(betError, result);
 

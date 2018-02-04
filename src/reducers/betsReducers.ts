@@ -2,14 +2,19 @@ import { Action, Reducer } from 'redux';
 import * as _ from 'underscore';
 import BigNumber from 'web3/bower/bignumber.js/bignumber';
 
-export interface Bet {
+export interface SquareBet {
   better: string;
   stake: string;
 }
 
+export interface Bet extends SquareBet {
+  home: string;
+  away: string;
+}
+
 export interface SquareInfo {
   total: string;
-  bets: Bet[];
+  bets: SquareBet[];
 }
 
 export interface SquareInfoMap {
@@ -19,12 +24,14 @@ export interface SquareInfoMap {
 export interface BetsState {
   loading: boolean;
   total: string;
+  all: Bet[],
   squares: SquareInfoMap;
 }
 
 const DEFAULT_STATE: BetsState = {
   loading: false,
   total: '0',
+  all: [],
   squares: {}
 };
 
@@ -35,7 +42,7 @@ const DEFAULT_SQUARE_INFO: SquareInfo = {
 
 _.range(0, 10).map(
   home => _.range(0, 10).map(away => {
-    DEFAULT_STATE.squares[`${home}-${away}`] = DEFAULT_SQUARE_INFO;
+    DEFAULT_STATE.squares[ `${home}-${away}` ] = DEFAULT_SQUARE_INFO;
   })
 );
 
@@ -71,10 +78,16 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
       return {
         loading: false,
         total: total.valueOf(),
+        all: bets.map(({ args: { stake, away, home, better } }) => ({
+          better,
+          stake: stake.valueOf(),
+          home: home.valueOf(),
+          away: away.valueOf()
+        })),
         squares: _.mapObject(
           DEFAULT_STATE.squares,
           (value, key) => {
-            const eventsBySquare = bySquare[key];
+            const eventsBySquare = bySquare[ key ];
 
             if (!eventsBySquare) {
               return DEFAULT_SQUARE_INFO;
@@ -104,12 +117,13 @@ export const betsReducer: Reducer<BetsState> = function (state: BetsState = DEFA
       const { args: { better, home, away, stake } }: BetEvent = (action as any).payload;
 
       const key = `${home.valueOf()}-${away.valueOf()}`;
-      const square = state.squares[key];
+      const square = state.squares[ key ];
 
       return {
         ...state,
+        all: state.all.concat([ { better, stake: stake.valueOf(), home: home.valueOf(), away: away.valueOf() } ]),
         total: new BigNumber(stake).add(state.total).valueOf(),
-        [key]: {
+        [ key ]: {
           total: new BigNumber(stake).add(square.total).valueOf(),
           bets: square.bets.concat([
             { better, stake: stake.valueOf() }

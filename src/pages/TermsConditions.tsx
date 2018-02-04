@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { Header } from 'semantic-ui-react';
 
 export interface TermsConditionsProps extends RouteComponentProps<{}> {
 }

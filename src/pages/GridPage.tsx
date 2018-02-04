@@ -3,11 +3,10 @@ import { RouteComponentProps } from 'react-router';
 import Grid, { GridCellComponent } from '../components/Grid';
 import BetModal from '../components/BetModal';
 import TimeToGame from '../components/TimeToGame';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { Header, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { weiDisplay } from '../util/numberDisplay';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 
 interface GridPageProps extends RouteComponentProps<{ square?: string }> {
 }
@@ -25,7 +24,7 @@ export default connect(
         square.split('-').map(s => +s) :
         null;
 
-      const score = pathScore ? { home: pathScore[0], away: pathScore[1] } : null;
+      const score = pathScore ? { home: pathScore[ 0 ], away: pathScore[ 1 ] } : null;
 
       return (
         <Segment loading={loading}>

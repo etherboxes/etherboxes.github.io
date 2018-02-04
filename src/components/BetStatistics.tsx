@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { SquareInfoMap } from '../reducers/betsReducers';
 import { web3 } from '../contracts';
 import BigNumber from 'web3/bower/bignumber.js/bignumber';
-import Statistic from 'semantic-ui-react/dist/commonjs/views/Statistic/Statistic';
+import { Statistic } from 'semantic-ui-react';
 import { weiDisplay } from '../util/numberDisplay';
 
 export interface BetStatisticsProps {
@@ -19,7 +19,7 @@ export default connect(
     public render() {
       const { score: { home, away }, total, amount, squares } = this.props;
 
-      const { total: squareTotal } = squares[`${home}-${away}`];
+      const { total: squareTotal } = squares[ `${home}-${away}` ];
 
       const betAmountWei = new BigNumber(web3.toWei(amount, 'ether'));
 
