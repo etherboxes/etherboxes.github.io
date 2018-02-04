@@ -122,6 +122,7 @@ export default connect(
                                 weiDisplay(
                                   (new BigNumber(userSquareStake))
                                     .div(squares[ square ].total)
+                                    .div(4)
                                     .mul(total)
                                     .round(5)
                                 )
