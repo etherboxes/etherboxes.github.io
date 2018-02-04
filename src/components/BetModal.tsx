@@ -120,12 +120,12 @@ export default class BetModal extends React.Component<Props, State> {
         </Modal.Content>
         <Modal.Actions>
           {
-            !ready && canSend ?
+            !ready || !canSend ?
               (
                 <small>
                   Please {
                   [
-                    canSend ? null : 'use a browser that supports web3 or MetaMask',
+                    canSend ? null : 'use a browser that supports web3 or an extension e.g. MetaMask',
                     value.acceptedToc ? null : 'accept the terms and conditions',
                     isValueValid ? null : 'specify a valid bet amount'
                   ].filter(s => s !== null)
