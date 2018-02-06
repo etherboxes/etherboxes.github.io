@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { AppState } from '../util/configureStore';
 import { weiDisplay } from '../util/numberDisplay';
 import * as moment from 'moment';
-import { VotingBasedOracle, web3 } from '../contracts';
+import { canSend, VotingBasedOracle, web3 } from '../contracts';
 
 interface GridPageProps extends RouteComponentProps<{ square?: string }> {
   loading: boolean;
@@ -94,17 +94,21 @@ export default connect(
           </Header>
 
           <Button
-            disabled={!finalized || accepted}
+            disabled={!finalized || accepted || !canSend}
             negative={true}
             onClick={this.rejectScores}
             content="Reject scores"
           />
           <Button
-            disabled={!finalized || accepted}
+            disabled={!finalized || accepted || !canSend}
             positive={true}
             onClick={this.acceptScores}
             content="Confirm scores"
           />
+
+          {
+            !canSend ? <small>You must be using a browser that supports web3 to vote</small> : null
+          }
         </Segment>
       );
     }
