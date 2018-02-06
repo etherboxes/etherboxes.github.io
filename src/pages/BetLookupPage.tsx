@@ -53,7 +53,7 @@ export default connect(
 
       const userBets: Bet[] = addr ? _.filter(
         allBets,
-        ({ better }) => better === addr
+        ({ better }) => better.toLowerCase() === addr.toLowerCase()
       ) : [];
 
       const userSquareTotals: { [square: string]: string } = {};

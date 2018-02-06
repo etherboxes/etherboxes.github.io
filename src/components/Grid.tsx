@@ -8,6 +8,7 @@ import { SquareInfo, SquareInfoMap } from '../reducers/betsReducers';
 import { web3 } from '../contracts';
 import numberDisplay from '../util/numberDisplay';
 import { Link } from 'react-router-dom';
+import { SquareWinsMap } from '../reducers/votesReducer';
 
 function NoWrapDiv(props: AllHTMLAttributes<HTMLDivElement>) {
   return (
@@ -25,11 +26,15 @@ interface CellComponentProps {
   home: string;
   away: string;
   squareInfo: SquareInfo
+  squareWins?: string;
 }
 
-export function GridCellComponent({ home, away, squareInfo: { bets, total } }: CellComponentProps) {
+export function GridCellComponent({ home, away, squareInfo: { bets, total }, squareWins }: CellComponentProps) {
   return (
-    <Link to={`/bet/${home}-${away}`}>
+    <Link
+      to={`/bet/${home}-${away}`}
+      style={{ backgroundColor: squareWins && +squareWins > 0 ? 'limegreen' : null }}
+    >
       <NoWrapDiv>
         <strong>{home} - {away}</strong>
       </NoWrapDiv>
@@ -41,6 +46,9 @@ export function GridCellComponent({ home, away, squareInfo: { bets, total } }: C
           numberDisplay(web3.fromWei(total, 'ether'))
         } <em>ETH</em>
       </NoWrapDiv>
+      <NoWrapDiv>
+        {squareWins && +squareWins > 0 ? `${squareWins} win(s)` : ''}
+      </NoWrapDiv>
     </Link>
   );
 }
@@ -48,14 +56,18 @@ export function GridCellComponent({ home, away, squareInfo: { bets, total } }: C
 interface GridProps<T extends CellComponentProps> {
   squares: SquareInfoMap;
   cellComponent: React.ComponentType<T>;
+  squareWins: SquareWinsMap;
 }
 
 export default connect(
-  ({ bets: { squares } }: AppState) => ({ squares })
+  ({ bets: { squares }, votes: { accepted, finalized, squareWins, votingPeriodStartTime } }: AppState) => ({
+    squares,
+    squareWins
+  })
 )(
   class Grid<T extends CellComponentProps> extends React.Component<GridProps<T>> {
     render() {
-      const { squares, cellComponent: CellComponent } = this.props;
+      const { squares, cellComponent: CellComponent, squareWins } = this.props;
 
       return (
         <div style={{ overflowX: 'auto' }}>
@@ -128,6 +140,7 @@ export default connect(
                                       <CellComponent
                                         home={'' + home}
                                         away={'' + away}
+                                        squareWins={squareWins[ `${home}-${away}` ]}
                                         squareInfo={squareInfo}
                                       />
                                     </Table.Cell>

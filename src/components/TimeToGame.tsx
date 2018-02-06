@@ -43,9 +43,11 @@ export default class TimeToGame extends React.Component<{}, { gameTime: number |
       return null;
     }
 
+    const gt = moment(gameTime * 1000);
+
     return (
       <span>
-        betting ends <strong>{moment(gameTime * 1000).fromNow()}</strong>
+        betting {gt.isAfter(moment()) ? 'ends' : 'ended'} <strong>{gt.fromNow()}</strong>
       </span>
     );
   }

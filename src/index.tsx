@@ -7,10 +7,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './util/configureStore';
 import { getBets } from './actions/betsActions';
+import { getVotingState } from './actions/votesActions';
 
 const store = configureStore();
 
 store.dispatch(getBets());
+store.dispatch(getVotingState());
 
 ReactDOM.render(
   <Provider store={store}>
