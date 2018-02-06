@@ -8,6 +8,7 @@ import { web3 } from '../contracts';
 import { Bet, SquareInfoMap } from '../reducers/betsReducers';
 import { weiDisplay } from '../util/numberDisplay';
 import BigNumber from 'web3/bower/bignumber.js/bignumber';
+import { SquareWinsMap } from '../reducers/votesReducer';
 import Timer = NodeJS.Timer;
 
 interface BetLookupPageProps extends RouteComponentProps<{ addr?: string }> {
@@ -15,10 +16,19 @@ interface BetLookupPageProps extends RouteComponentProps<{ addr?: string }> {
   squares: SquareInfoMap;
   total: string;
   loading: boolean;
+  squareWins: SquareWinsMap;
+  accepted: boolean;
 }
 
 export default connect(
-  ({ bets: { all, loading, squares, total } }: AppState) => ({ allBets: all, loading, squares, total })
+  ({ bets: { all, loading, squares, total }, votes: { squareWins, accepted } }: AppState) => ({
+    allBets: all,
+    loading,
+    squares,
+    total,
+    squareWins,
+    accepted
+  })
 )(
   class BetLookupPage extends React.Component<BetLookupPageProps, { accounts: string[] }> {
     state = {
@@ -48,7 +58,9 @@ export default connect(
     };
 
     render() {
-      const { allBets, history, loading, squares, total, match: { params: { addr } } } = this.props;
+      const {
+        allBets, history, loading, squares, total, match: { params: { addr } }, squareWins, accepted
+      } = this.props;
       const { accounts } = this.state;
 
       const userBets: Bet[] = addr ? _.filter(
@@ -98,6 +110,7 @@ export default connect(
                       <Table.HeaderCell>Stake</Table.HeaderCell>
                       <Table.HeaderCell>Ownership</Table.HeaderCell>
                       <Table.HeaderCell>Winnings per quarter</Table.HeaderCell>
+                      <Table.HeaderCell>Actual winnings{accepted ? null : ' (pending)'}</Table.HeaderCell>
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
@@ -121,6 +134,18 @@ export default connect(
                               {
                                 weiDisplay(
                                   (new BigNumber(userSquareStake))
+                                    .div(squares[ square ].total)
+                                    .div(4)
+                                    .mul(total)
+                                    .round(5)
+                                )
+                              } ETH
+                            </Table.Cell>
+                            <Table.Cell>
+                              {
+                                weiDisplay(
+                                  (new BigNumber(userSquareStake))
+                                    .mul(squareWins[ square ] || 0)
                                     .div(squares[ square ].total)
                                     .div(4)
                                     .mul(total)
